@@ -7,9 +7,21 @@
 
 int main(int argc, char *argv[])
 {
+    if (argc != 4)
+    {
+        perror("Not valid number of arguments\n");
+        return 1;
+    }
+    
     int n = 0;
     struct HashMap *map = NULL;
-    map = ReadHm("Path to file data on binary file");
+    char uncompressed_file[50] = {0};
+    char binary_file_data[50] = {0};
+    char compressed_file[50] = {0};
+    strcpy(uncompressed_file, argv[1]);
+    strcpy(binary_file_data, argv[2]);
+    strcpy(compressed_file, argv[3]);
+    map = ReadHm(binary_file_data);
     struct HuffmanNode *star = NULL;
     struct HuffmanNode *parrent = NULL;
     // We load the data from the hash map about the file and make the leafe nodes for out tree//
@@ -37,7 +49,7 @@ int main(int argc, char *argv[])
     star = huffmanTree(star);
     printHuffmanTree(star, 0);
     code = constructHuffmanCodes(star, 0);
-    GenerateMsg(star, code, "Path to uncompressed file");
+    GenerateMsg(star, code, uncompressed_file, compressed_file);
     Delete(map);
     free(newstr);
     free(newfreq);

@@ -7,16 +7,27 @@
 #include "../Headers/Compression.h"
 #include "../Headers/Decompress.h"
 
-int main()
+int main(int argc, char *argv[])
 {
+    if (argc != 4)
+    {
+        perror("Wrong number of argumnets\n");
+        return 1;
+    }
+    char uncompressed_file[50] = {0};
+    char binary_file_data[50] = {0};
+    char compressed_file[50] = {0};
+    strcpy(uncompressed_file, argv[1]);
+    strcpy(binary_file_data, argv[2]);
+    strcpy(compressed_file, argv[3]);
     int h = 0;
     int lj = 0;
-    FILE *compressed_data = fopen("Path tovcompressed file in binary format", "rb");
+    FILE *compressed_data = fopen(compressed_file, "rb");
     fseek(compressed_data, 0, SEEK_END);
     off_t n = ftell(compressed_data);
     fseek(compressed_data, 0, SEEK_SET);
-    FILE *decompressed_data = fopen("Path to uncompressed file", "w");
-    struct HashMap *map = ReadHm("Path to file data in binary format");
+    FILE *decompressed_data = fopen(uncompressed_file, "w");
+    struct HashMap *map = ReadHm(binary_file_data);
     struct HuffmanNode *tree = NULL;
     struct HuffmanNode *star = NULL;
     struct HuffmanNode *parrent = NULL;
@@ -40,7 +51,6 @@ int main()
         }
     }
     star = huffmanTree(star);
-    printf("%ld\n", n);
     if (n < 1000000)
     {
         DecompressSF(compressed_data, decompressed_data, star, n);

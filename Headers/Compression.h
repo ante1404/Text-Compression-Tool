@@ -20,7 +20,7 @@ struct HuffmanNode *Deletion(struct HuffmanNode *root);
 void printHuffmanTree(struct HuffmanNode *root, int level);
 char **constructHuffmanCodes(struct HuffmanNode *root, int level);
 void freeHuffmanTree(struct HuffmanNode *node);
-void GenerateMsg(struct HuffmanNode *root, char *code[], char orgMSg[]);
+void GenerateMsg(struct HuffmanNode *root, char *code[], char orgMSg[], char *compressed_file);
 void writeBit(FILE *file, int bit, int i);
 
 #endif

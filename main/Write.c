@@ -7,8 +7,18 @@
 
 int main(int argc, char *argv[])
 {
+    if (argc != 3)
+    {
+        perror("Wrong number of argumnets\n");
+        return 1;
+    }
+    char uncompressed_file[50] = {0};
+    char binary_file_data[50] = {0};
+    strcpy(uncompressed_file, argv[1]);
+    strcpy(binary_file_data, argv[2]);
+
     char *str = NULL;
-    FILE *DNA = fopen("Path to uncompressed file", "r");
+    FILE *DNA = fopen(uncompressed_file, "r");
 
     fseek(DNA, 0, SEEK_END);
     off_t file_size = ftell(DNA);
@@ -38,7 +48,7 @@ int main(int argc, char *argv[])
         InsertElement(map, str[i], str[i], freq[(int)str[i]], str[i]);
     }
 
-    WriteHm(map, "path to file to store file data on binary file");
+    WriteHm(map, binary_file_data);
     Delete(map);
     free(str);
     return 0;

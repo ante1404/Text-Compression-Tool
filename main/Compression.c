@@ -130,7 +130,7 @@ char **constructHuffmanCodes(struct HuffmanNode *root, int level)
     return code;
 }
 
-void GenerateMsg(struct HuffmanNode *root, char *code[], char orgMSg[])
+void GenerateMsg(struct HuffmanNode *root, char *code[], char orgMSg[], char*compressed_file)
 {
 
     char *str = NULL;
@@ -146,9 +146,8 @@ void GenerateMsg(struct HuffmanNode *root, char *code[], char orgMSg[])
     fread(str, 1, file_size, DNA);
     fclose(DNA);
     unsigned long long int n = strlen(str);
-    printf("%lld\n", n);
     int *msg = (int *)calloc((1000000), sizeof(int));
-    FILE *hun = fopen("Path to compressed file in binary format", "wb");
+    FILE *hun = fopen(compressed_file, "wb");
     /*Now for each charater in original message we traverse the inner loop to find its
     coresponding binary code that was constructed by huffman tree and we converti it to int and store it to an msg array
     The reason we allocate only 1 milion bytes and free and repeate is because you can allocate gbs of
